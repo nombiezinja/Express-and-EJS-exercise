@@ -1,14 +1,13 @@
-/*app.js */
+/* app.js */
 
-//require and instantiate express
-
+// require and instantiate express
 const app = require('express')()
 
-//fake posts to stimulate a database
+// fake posts to simulate a database
 const posts = [
   {
     id: 1,
-    author: 'john',
+    author: 'John',
     title: 'Templating with EJS',
     body: 'Blog post number 1'
   },
@@ -19,7 +18,7 @@ const posts = [
     body: 'Blog post number 2'
   },
   {
-    id:3,
+    id: 3,
     author: 'Emma',
     title: 'Streams',
     body: 'Blog post number 3'
@@ -30,26 +29,25 @@ const posts = [
     title: 'Events',
     body: 'Blog post number 4'
   }
-
 ]
 
-//set the view engine to ejs - tells express to use ejs as template engine
-//express will automatically look inside views/ folder for template files
-app.set('view engine', 'ejs');
+// set the view engine to ejs
+app.set('view engine', 'ejs')
 
-//blog home page
+// blog home page
 app.get('/', (req, res) => {
-  //render 'home.ejs' with the list of posts
-  //res.render() method used to render the view we pass it and send it to the client
-  res.render('home', {posts: posts})
+  // render `home.ejs` with the list of posts
+  res.render('home', { posts: posts })
 })
 
-//blog post
-app.get('/post/:id', (req, res)=> {
-  const post = posts.filter((post) =>{
+// blog post
+app.get('/post/:id', (req, res) => {
+  // find the post in the `posts` array
+  const post = posts.filter((post) => {
     return post.id == req.params.id
   })[0]
 
+  // render the `post.ejs` template with the post content
   res.render('post', {
     author: post.author,
     title: post.title,
@@ -60,5 +58,3 @@ app.get('/post/:id', (req, res)=> {
 app.listen(8080)
 
 console.log('listening on port 8080')
-
-
